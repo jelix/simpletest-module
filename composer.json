@@ -1,0 +1,23 @@
+{
+    "name": "jelix/simpletest-module",
+    "type": "library",
+    "description": "Legacy Simpletest module for Jelix",
+    "keywords": ["framework"],
+    "homepage": "http://jelix.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Laurent Jouanneau",
+            "email": "laurent@jelix.org"
+        },
+        {
+            "name": "Jelix Community",
+            "homepage": "https://github.com/jelix/jelix/graphs/contributors"
+        }
+    ],
+    "require": {
+    },
+    "replace": {
+    },
+    "minimum-stability": "stable"
+}
