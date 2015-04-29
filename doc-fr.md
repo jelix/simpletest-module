@@ -1,14 +1,21 @@
 # Créer des tests avec Simpletest
 
 
-## installation
+## installation des sources
 
-Dans votre fichier mainconfig.ini.php, declarez le répertoire simpletest-module
-dans le paramètre modulePath. Exemple :
+Si vous n'installez pas le module à partir de Composer, téléchargez ses sources et
+installez le répertoire junittests dans un répertoire. Si ce répertoire n'est pas
+connu de votre application, déclarer le module dans votre fichier application.init.php :
 
-```ini
-modulesPath = lib:jelix-modules/,app:modules/,app:vendor/jelix/simpletest-module/
+```php
+jApp::declareModule(__DIR__.'/../chemin/vers/junittests');
 ```
+
+Si vous utilisez Composer, Jelix détectera automatiquement la présence du module
+junittests.
+
+
+## configuration
 
 Dans votre fichier localconfig.ini.php, uniquement dans un environnement de developpement,
 déclarez le module junittests.
@@ -25,6 +32,11 @@ junittests.access = 2
 L'option enableTests active l'interface web de junitttests, permettant de lancer alors
 les tests Simpletests à partir d'un navigateur.
 
+Vous **devez** mettre à off quand vous passez votre application sur le serveur
+de production, ou utilisez une édition "optimized" de jelix. Cela évite que
+n'importe qui puisse lancer les tests unitaires. Le mieux étant de ne pas installer
+ce module en production.
+
 Ensuite vous activez le module:
 
 ```bash
@@ -33,20 +45,6 @@ php cmd.php installmodule junittests
 
 Copier également le répertoire jelix-modules/junittests/install/www/tests dans myApp/www/.
 
-
-## Préparation
-
-Pour pouvoir lancer les tests, il faut ajouter au début du fichier de
-configuration de votre application : 
-
-```ini
-  enableTests = on
-```
-
-Vous **devez** mettre à off quand vous passez votre application sur le serveur
-de production, ou utilisez une édition "optimized" de jelix (ou encore supprimer
-le module junittests tout simplement). Cela évite que n'importe qui puisse
-lancer les tests unitaires.
 
 ## les fichiers de tests
 

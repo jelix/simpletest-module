@@ -2,12 +2,19 @@
 
 ## installing
 
-In your mainconfig.ini.php file, declare the simpletest-module directory in the modulePath
-parameter of your app, and d Example:
+If you don't install the module with Composer, download sources of the
+junittests module and install it somewhere. if "somewhere" is not an already
+known modules directory by your application, declare the module in your 
+application.init.php file:
 
-```ini
-modulesPath = lib:jelix-modules/,app:modules/,app:vendor/jelix/simpletest-module/
+```php
+jApp::declareModule(__DIR__.'/../path/to/junittests');
 ```
+
+If you use Composer, Jelix will detect automatically the junittests module path.
+
+
+## configuration
 
 In your localconfig.ini.php, only in development environments, declare the module
 module junittests
