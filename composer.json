@@ -1,6 +1,6 @@
 {
     "name": "jelix/simpletest-module",
-    "type": "library",
+    "type": "jelix-module",
     "description": "Legacy Simpletest module for Jelix 1.7+",
     "keywords": ["framework"],
     "homepage": "http://jelix.org",
