@@ -21,29 +21,23 @@ Dans votre fichier localconfig.ini.php, uniquement dans un environnement de deve
 déclarez le module junittests.
 
 ```ini
-; for security, enable this boolean only on developement server
+; for security, enable this boolean only on development server
 enableTests = on
-
-[modules]
-
-junittests.access = 2
 ```
 
 L'option enableTests active l'interface web de junitttests, permettant de lancer alors
 les tests Simpletests à partir d'un navigateur.
 
 Vous **devez** mettre à off quand vous passez votre application sur le serveur
-de production, ou utilisez une édition "optimized" de jelix. Cela évite que
-n'importe qui puisse lancer les tests unitaires. Le mieux étant de ne pas installer
-ce module en production.
+de production. Cela évite que n'importe qui puisse lancer les tests unitaires. 
+Le mieux étant de ne pas installer ce module en production.
 
 Ensuite vous activez le module:
 
 ```bash
-php cmd.php installmodule junittests
+php dev.php configure:module junittests
+php install/installer.php
 ```
-
-Copier également le répertoire jelix-modules/junittests/install/www/tests dans myApp/www/.
 
 
 ## les fichiers de tests
@@ -166,12 +160,9 @@ exemple :
 ### Lancement des tests via l'interface web
 
 Le lancement des tests se fait en appelant la page principale du module
-junittests. Un exemple d'url :
-http://testapp.jelix.org/index.php?module=junittests . Vous pouvez d'ailleurs
-vous rendre à cette url précise : vous y verrez tous les tests unitaires sur
-jelix ;-)
+junittests. Un exemple d'url : `http://myapp/index.php/junittests`.
 
-N'oubliez pas de mettre dans la configuration le paramètre enableTests = on,
+N'oubliez pas de mettre dans la configuration le paramètre `enableTests = on`,
 sinon vous aurez droit à une erreur 404.
 
 Cette première page présente sur la gauche toute la liste des tests présents
@@ -184,20 +175,16 @@ provoquer un "timeout" au niveau du navigateur).
 À la fin du lancement de tests, il est affiché le nombre de tests unitaires qui
 sont passés avec succès, et celui des tests échoués.
 
-Notez que le module junittests utilise sa propre réponse HTML, et fait appel à
-une feuille de style tests/design.css qui doit être placée dans le répertoire
-www de votre application. Vous en trouverez une dans le répertoire //install//
-du module junittests.
+Notez que le module junittests utilise sa propre réponse HTML.
 
 
 ### Lancements des tests via la ligne de commande
 
-Le lancement des tests se fait en exécutant un script ''tests.php'' se trouvant
-dans le répertoire scripts de l'application jelix. Vous pouvez utiliser
-l'application [testapp](http://jelix.org/articles/telechargement/stable) (voir
-dans "Application de test") pour en voir un exemple.
+Le lancement des tests se fait en exécutant un script `simpletest.php` se trouvant
+dans le répertoire scripts de l'application jelix. Il est automatiquement
+installé.
 
-Voici une listes des différentes commandes disponibles :
+Voici une liste des différentes commandes disponibles :
 
 #### Lister tous les tests
 
@@ -206,7 +193,7 @@ devez préciser seulement ici le nom du contrôleur car le mot-clé "help" renvo
 vers l'aide générale de la ligne de commande de Jelix. Exemple :
 
 ```bash
-php tests.php default:help
+php simpletest.php default:help
 ```
 
 #### Lancer tous les tests de l'application
@@ -216,7 +203,7 @@ particulier, car exécuter tous les tests de l'application est l'action par
 défaut. Exemple :
 
 ```bash
-php tests.php
+php simpletest.php
 ```
 
 #### Lancer tous les tests d'un module
@@ -225,7 +212,7 @@ Exécuter l'ensemble des tests d'un module spécifié. Vous devez ici donner le 
 de votre module en paramètre. Exemple pour testapp :
 
 ```bash
-php tests.php module jelix_tests
+php simpletest.php module jelix_tests
 ```
 
 #### Lancer un test particulier
@@ -235,14 +222,9 @@ test en paramètre, qui est spécifié dans la commande help (entre parenthèses
 Exemple :
 
 ```bash
-php tests.php single jelix_tests core.jlocale
+php simpletest.php single jelix_tests core.jlocale
 ```
 
 À la fin du lancement des tests, il est affiché le nombre de tests unitaires qui
 sont passés avec succès, et celui des tests échoués.
-
-Notez que si vous n'avez pas le fichier ''tests.php'' dans le répertoire
-scripts, vous pouvez récupérer tous les fichiers nécessaires (le script et le
-fichier de configuration) dans le répertoire install du module junittests.
-
 

@@ -20,12 +20,8 @@ In your localconfig.ini.php, only in development environments, declare the modul
 module junittests
 
 ```ini
-; for security, enable this boolean only on developement server
+; for security, enable this boolean only on development server
 enableTests = on
-
-[modules]
-
-junittests.access = 2
 ```
 
 The enableTests option activate the web interface of junittests, allowing to launch
@@ -34,7 +30,8 @@ Simpletests tests in a browser.
 Then you can activate the module in your application.
 
 ```bash
-php cmd.php installmodule junittests
+php dev.php configure:module junittests
+php install/installer.php
 ```
 
 
@@ -155,10 +152,10 @@ class testShopCart extends UnitTestCase {
 
 ## Web-interface test-runner
 
-Connect to the main junittest module action as with the following URL to the Jelix test-suite:
-http://testapp.jelix.org/index.php?module=junittests
+Connect to the main junittest module action with an url like this:
+`http://myapp/index.php/junittests`.
 
-Setting "enableTests = off" in the project configuration would generate a 404 HTTP page
+Setting `enableTests = off` in the project configuration would generate a 404 HTTP page
 access error response on this url.
 
 Links are provided to run test-cases individually or all a module's tests in the left frame.
@@ -166,14 +163,12 @@ Links are provided to run test-cases individually or all a module's tests in the
 Success and failures are counted and reported at the end of the test.
 Note that your browser could timeout before large tests are done.
 
-Junittests uses it's own HTML responses, and uses it's tests/design.css which should be
-copied from the "install" directory to your www directory.
+Junittests uses it's own HTML response.
 
 ## Command-line test runner
 
-You can run the test with the ''tests.php'' script in the scripts directory of your jelix
-application. You can use the [testapp](http://jelix.org/articles/en/download/stable)
-application (see in "Test Application") to have a running sample of it.
+You can run the test with the `simpletest.php` script in the scripts directory of your jelix
+application.
 
 Here is the list of the different commands available :
 
@@ -185,7 +180,7 @@ You have to give the name of the controller here because the "help" keyword give
 general help for Jelix command line.
 
 ```bash
-php tests.php default:help
+php simpletest.php default:help
 ```
 
 ### Run all the tests of the application
@@ -194,7 +189,7 @@ Runs the whole set of tests of your Jelix application. No need for a specific pa
 here, because running all the tests is the default action.
 
 ```bash
-php tests.php
+php simpletest.php
 ```
 
 ### Run all the tests of a module
@@ -203,7 +198,7 @@ Runs the whole set of tests of a specified module. You have to specify here the 
 the module as a parameter. Here is an example for the testapp application :
 
 ```bash
-php tests.php module jelix_tests
+php simpletest.php module jelix_tests
 ```
 
 ### Run only one test
@@ -213,13 +208,9 @@ test as parameters. You can help yourself by using the help command specified ab
 it.
 
 ```bash
-php tests.php single jelix_tests core.jlocale
+php simpletest.php single jelix_tests core.jlocale
 ```
 
 When the running of tests ends, the number of unit tests that succeeded and faild is
 displayed.
-
-If you don't have the ''tests.php'' file in the scripts directory, you can retrieve all
-the necessary files (the script and the config file) in the install directory of the
-junittests module.
 
