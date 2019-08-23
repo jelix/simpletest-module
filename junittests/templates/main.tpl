@@ -1,4 +1,4 @@
-{meta_htmlmodule css 'junittests', 'design.css'}
+{meta_htmlmodule css 'junittests', 'junittests.css'}
 <div id="header">
 {$page_title}
 </div>
